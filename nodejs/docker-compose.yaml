@@ -1,0 +1,43 @@
+version: "3.9"
+services:
+   fastapi:
+     build:
+         contaxt: ./fastapi
+     image: fastapi:latest
+     ports: 
+      - "8080:8000"
+     environment:
+        TEST: example
+        TEST1: exampledb 
+     networks:
+      - ip_app_bridge
+     volumes:
+      - fastapi_data:/app
+
+
+   falsk:
+     build:
+        contaxt: ./flask
+        image: flask:latest
+        ports: 
+          - "8081:8000"
+
+   nodejs:
+     build:
+        contaxt: ./nodejs
+        image: nodejs:latest
+        ports: 
+          - "8082:8000"
+
+networks:
+   ip_app_bridge: 
+      name: ip_app_bridge
+      driver: bridge
+
+volumes:
+   fastapi_data:
+      name: ip_fastapi_data
+      driver: local
+
+
+
